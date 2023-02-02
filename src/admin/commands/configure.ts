@@ -101,7 +101,7 @@ bot.registerCommand('configure', ['conf'], async message => {
                 '```\n' + (config.message) + '\n```\n\n' + 
 
                 '📢 `!configure welcome.greeting`\n' + 
-                'The greeting message for CirqueBot to send to a user once their welcome channel has been created.\n\n' + 
+                'The greeting message for DinoBot to send to a user once their welcome channel has been created.\n\n' + 
                 'Some helpful tips:\n' + 
                 '- You may use <user> in your message to mention/ping the new member.\n' + 
                 '- You may use <server> in your message to display this server\'s name.\n' + 
@@ -167,7 +167,7 @@ bot.registerCommand('configure', ['conf'], async message => {
 
     } else {
         const embed = new MessageEmbed()
-            .setAuthor({ iconURL: message.guild?.iconURL() || '', name: `CirqueBot Configuration for "${message.guild?.name}"` })
+            .setAuthor({ iconURL: message.guild?.iconURL() || '', name: `DinoBot Configuration for "${message.guild?.name}"` })
             .setDescription(
                 '🎪 `!configure welcome`\n' + 
                 'The Welcome module is used to create per-user welcome channels for users, intended for use by private servers ' +

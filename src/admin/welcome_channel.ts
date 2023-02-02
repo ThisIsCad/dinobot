@@ -56,7 +56,7 @@ client.on('guildMemberAdd', async member => {
         const embed = new MessageEmbed()
             .setColor(EMBED_ERROR_COLOR)
             .setAuthor({ iconURL: member.avatar || '', name: `The welcome channel for ${member.user.tag} has been archived` })
-            .setDescription(`The welcome channel for <@${member.user.tag}> has been automatically archived (User was automatically kicked by CirqueBot via Protect Cad Directive).`);
+            .setDescription(`The welcome channel for <@${member.user.tag}> has been automatically archived (User was automatically kicked by DinoBot via Protect Cad Directive).`);
 
         config.systemChannel?.send({ embeds: [embed] });
     } else {

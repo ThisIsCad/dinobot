@@ -62,12 +62,12 @@ export async function easterEggHandler(message: Message<boolean>) {
             setTimeout(() => message.react('<:no:740146335197691945>'), 100);
             easterEggData.angerLevel += 1;
         }
-    } else if (message.content.match(/^((<@\!?912376778939584562> )? *(hi|hello|hey) cirque ?bot *|<@\!?912376778939584562> *(hi|hello|hey) *)/i)) {
+    } else if (message.content.match(/^((<@\!?912376778939584562> )? *(hi|hello|hey) (cirque|dino) ?bot *|<@\!?912376778939584562> *(hi|hello|hey) *)/i)) {
         setTimeout(() => message.react('<a:clownWave:819822599726432266>'), 100);
         easterEggData.angerLevel -= 1;
     } else if (message.content.match(/^(<@\!?912376778939584562>).*\berp\b/i)) {
         setTimeout(() => message.react('<:no:740146335197691945>'), 100);
-    } else if (message.content.match(/blame cirque ?bot/i)) {
+    } else if (message.content.match(/blame (cirque|dino) ?bot/i)) {
         if (easterEggData.angerLevel >= 3) {
             setTimeout(() => bot.replyTo(message, bot.COLORS.DM, arrayRandom(angryResponses.blameBot)));
             easterEggData.angerLevel = 1;
@@ -75,7 +75,7 @@ export async function easterEggHandler(message: Message<boolean>) {
             setTimeout(() => message.react('<a:pineappleNopers:925470285015183400>'), 100);
             easterEggData.angerLevel += 1;
         }
-    } else if (message.content.match(/^((<@\!?912376778939584562> )? *(fuck off|fuck you) cirque ?bot *|<@\!?912376778939584562> *(fuck off|fuck you) *)$/i)) {
+    } else if (message.content.match(/^((<@\!?912376778939584562> )? *(fuck off|fuck you) (cirque|dino) ?bot *|<@\!?912376778939584562> *(fuck off|fuck you) *)$/i)) {
         if (easterEggData.angerLevel >= 3) {
             setTimeout(() => bot.replyTo(message, bot.COLORS.DM, 'How about YOU fuck off <:smadge:952346837136842762>'));
             easterEggData.angerLevel = 1;
@@ -83,11 +83,11 @@ export async function easterEggHandler(message: Message<boolean>) {
             setTimeout(() => message.react('<:ANGERY:823203660603457567>'), 100);
             easterEggData.angerLevel += 1;
         }
-    } else if (message.content.match(/where( is)? cirque ?bot/i) || message.content.match(/^(<@\!?912376778939584562>) where (are|r) (you|u)/i)) {
+    } else if (message.content.match(/where( is)? (cirque|dino) ?bot/i) || message.content.match(/^(<@\!?912376778939584562>) where (are|r) (you|u)/i)) {
         bot.replyTo(message, bot.COLORS.DM, 'At your mom\'s place');
     } else if (message.content.match(/(<@\!?912376778939584562>)/)) {
         setTimeout(() => message.react('<:rooPing:833724789259894895>'), 100);
-    } else if (message.content.match(/cirque ?bot/i)) {
+    } else if (message.content.match(/(cirque|dino) ?bot/i)) {
         setTimeout(() => message.react('<:peepoPeek:871461195197071390>'), 100);
     }
 

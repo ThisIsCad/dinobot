@@ -22,9 +22,13 @@ let messages = [
 bot.registerCommand('pick', ['choose'], message => {
     let [options] = bot.parseCommand(message, /(.*)/);
     let decisions = options.split(options.includes(',') ? ',' : ' ').map(x => x.trim());
-    const roll = arrayRandom(decisions);
-
+    let roll = arrayRandom(decisions);
     let msg = arrayRandom(messages).replace(/\$/, `**${roll}**`);
+    let cad;
+
+    if (cad = decisions.find(x => x.toLowerCase().startsWith('cad'))) {
+        msg = `I choose **${cad}**. They are the best!`;
+    }
 
     bot.replyTo(message, bot.COLORS.DM, msg);
 });

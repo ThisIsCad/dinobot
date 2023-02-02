@@ -15,7 +15,7 @@ bot.registerCommand('register_slash_commands', [], async message => {
         .addSubcommand(help);
     let adminBuilder = new SlashCommandBuilder()
         .setName('admin')
-        .setDescription('Administrative commands for CirqueBot')
+        .setDescription('Administrative commands for DinoBot')
         .addSubcommand(welcome);
 
     const rest = new REST({ version: '9' }).setToken(bot.config.BOT_TOKEN);

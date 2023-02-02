@@ -21,7 +21,7 @@ bot.registerCommand('poll', [], async message => {
         const embed = new MessageEmbed()
             .setColor(EMBED_INFO_COLOR)
             .setAuthor({ iconURL: message.author.avatarURL() || '', name: await getDisplayName(message.author, message.guild) })
-            .setFooter({ text: `Poll provided by CirqueBot via !poll` })
+            .setFooter({ text: `Poll provided by DinoBot via !poll` })
             .setDescription(pollMsg);
         
         message.delete();

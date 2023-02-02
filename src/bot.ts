@@ -24,7 +24,7 @@ class Bot {
     }
 
     /**
-     * Reply to the given message, but wrap the given reply in an embed (to help CirqueBot messages stand out
+     * Reply to the given message, but wrap the given reply in an embed (to help DinoBot messages stand out
      * from regular messages). If an embed is given, the color will be set and then sent as-is.
      * @param message The message to reply to
      * @param color The color for the embed

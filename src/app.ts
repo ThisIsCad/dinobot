@@ -20,11 +20,13 @@ import './threads/commands';
 import './misc/commands';
 
 log('info', `--------------------------------------------------------------------`);
-log('info', `CircusBot is now initializing...`);
+log('info', `DinoBot is now initializing...`);
 log('info', `--------------------------------------------------------------------`);
 
 client.on('ready', async () => {
   log('info', `Logged in as ${client?.user?.tag}!`);
+
+  client.user?.setActivity('with dinos', { type: 'PLAYING' });
 
   await Promise.all(client.guilds.cache.map(async guild => {
     log('debug', `Fetching members for server '${guild.name}'`);

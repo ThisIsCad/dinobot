@@ -88,7 +88,7 @@ export function cannedReplyHandler(message: Message<boolean>) {
     if (!message.content.startsWith('=') || !message.guildId) {
         return;
     } else if (!cannedReplies.hasOwnProperty(message.guildId)) {
-        cannedReplies[message.guildId] = { '__auto_update__': { author: 'CirqueBot', locked: true, value: '' } };
+        cannedReplies[message.guildId] = { '__auto_update__': { author: 'DinoBot', locked: true, value: '' } };
     }
 
     let content = message.content.substring(1);
@@ -185,11 +185,11 @@ export function cannedReplyHandler(message: Message<boolean>) {
     } else if (name === 'help' || !name) {
         bot.replyTo(message, EMBED_INFO_COLOR, new MessageEmbed().setTitle('Canned Replies').setDescription(
             'Canned replies are a feature that allow you to save a message/attachment/link with a name, and then ' +
-            'whenever that name is posted in a channel with CirqueBot, the contents will be posted as a reply. For ' +
+            'whenever that name is posted in a channel with DinoBot, the contents will be posted as a reply. For ' +
             'example, you could create a command that contains your guild\'s StarParse info:\n\n' +
-            '```\n=parse=**StarParse Group:** CirqueBot/Cirquebot\n```\n' + 
+            '```\n=parse=**StarParse Group:** DinoBot/DinoBot\n```\n' + 
             'Then, anytime a user needs the parse or asks for it, instead of trying to dig thru your pinned messages to ' + 
-            'find it, you can simply use the `=parse` command and CirqueBot will post your saved messages.\n\n' + 
+            'find it, you can simply use the `=parse` command and DinoBot will post your saved messages.\n\n' + 
             'Canned replies are meant to be a collaborative feature, so anyone can create, edit, or use them. If you want to ' +
             'lock down a certain reply, admins can use the `!crlock` and `!crunlock` commands.\n\n' +
             'If you are trying to find a canned reply but cannot remember the exact name, you can use the `=search` command to ' + 

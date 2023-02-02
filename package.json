@@ -1,10 +1,10 @@
 {
-    "name": "circus-bot",
+    "name": "dino-bot",
     "version": "0.0.1",
-    "main": "cirque-bot.js",
+    "main": "dino-bot.js",
     "scripts": {
-        "build": "esbuild src/app.ts --bundle --platform=node --outfile=cirque-bot.js",
-        "run": "set MODE=development&& node cirque-bot.js"
+        "build": "esbuild src/app.ts --bundle --platform=node --outfile=dino-bot.js",
+        "run": "set MODE=development&& node dino-bot.js"
     },
     "devDependencies": {
         "esbuild": "^0.14.11",

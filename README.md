@@ -1,5 +1,5 @@
-CircusBot Readme
-================
+DinoBot Readme
+==============
 
 Features
 --------
@@ -23,10 +23,10 @@ Allows users to collaboratively create and edit "canned replies" that can be rep
 Deployment
 ----------
 
-The only prerequisite is having Docker installed, and grabbing the docker image (which you may have to build yourself, see below). In this example, I've copied the source code to `/usr/src/circusbot` on my server, and am using a mounted volume to persist data across container restarts:
+The only prerequisite is having Docker installed, and grabbing the docker image (which you may have to build yourself, see below). In this example, I've copied the source code to `/usr/src/dinobot` on my server, and am using a mounted volume to persist data across container restarts:
 
 ```
-docker run -itd -v /usr/src/circusbot:/usr/src/app -v /usr/src/circusbot:/usr/src/app circusbot
+docker run -itd -v /usr/src/dinobot:/usr/src/app -v /usr/src/dinobot:/usr/src/app dinobot
 ```
 
 Configuration
@@ -81,6 +81,6 @@ Building The Docker Image
 **Linux:**
 
 ```
-docker build -t circusbot .
-docker run -itd -v /usr/src/circusbot/data:/usr/src/app/data -v /usr/src/circusbot:/usr/src/app circusbot
+docker build -t dinobot .
+docker run -itd -v /usr/src/dinobot/data:/usr/src/app/data -v /usr/src/dinobot:/usr/src/app dinobot
 ```

@@ -50,6 +50,6 @@ bot.registerCommand('event_help', ['events', 'event'], interaction => {
         return;
     }   
     
-    const embed = new MessageEmbed().setTitle('CirqueBot Help: ​ ​ `!events`').setDescription(helpMsg)
+    const embed = new MessageEmbed().setTitle('DinoBot Help: ​ ​ `!events`').setDescription(helpMsg)
     bot.replyTo(interaction, EMBED_INFO_COLOR, embed);
 });

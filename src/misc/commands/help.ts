@@ -17,7 +17,7 @@ bot.registerCommand('help', [], async interaction => {
         helpMsg += "⏲️ `remindme`\nCreate a reminder for yourself to go off in the specified time. The reminder message is optional, and if not specified, a random message will be provided instead. The command can also take a time (e.g. 6:00 PM), but not a date.\n**Example:** `!remindme 1h Do Something`\n\n";
     }
     if (bot.checkPermissions('8ball', interaction.channel)) {
-        helpMsg += "❓ `8ball`\nAsk the magic 8-ball a yes/no question, and receive a response from the beyond.\n**Example:** `!8ball Is CirqueBot the best bot?`\n\n";
+        helpMsg += "❓ `8ball`\nAsk the magic 8-ball a yes/no question, and receive a response from the beyond.\n**Example:** `!8ball Is DinoBot the best bot?`\n\n";
     }
     if (bot.checkPermissions('nroll', interaction.channel)) {
         helpMsg += "🎲 `roll`\nRoll a random number. Useful if you are indecisive, or just want to fairly select an option. Can take a range to roll (min & max, or just max). Default minimum value is 1.\n**Example:** `!roll 5 20`\n\n";
@@ -33,15 +33,15 @@ bot.registerCommand('help', [], async interaction => {
     }
 
     helpMsg += "🗒️ `=`\nCanned Messages allow you to create an interactive Discord 'wiki' of sorts, where users can create a named message with an assigned value, and users can re-post the assigned value using just the name in any channel. For more information, type `=help`.\n**Example:** `=parse=Here is our StarParse information`\n\n";
-    helpMsg += "<:worrySnipe:953042402074050560> `pls snipe`\nThis infamous command allows you to 'snipe' a deleted message posted within the configured time limit. CirqueBot will repost the message & author of the deleted message. Please use responsibly.\n\n";
-    helpMsg += "<:worrySnipe:953042402074050560> `pls esnipe`\nThis slightly less infamous command allows you to 'snipe' an edited message posted within the configured time limit. CirqueBot will repost the original message & author of the edited message. Please use responsibly.\n\n";
-    helpMsg += "<:worrySnipe:953042402074050560> `pls rsnipe`\nThis completely obscure command allows you to 'snipe' a reaction that was removed from a message within the configured time limit. CirqueBot will repost the original reaction & author. Please use irresponsibly.\n\n";
+    helpMsg += "<:worrySnipe:953042402074050560> `pls snipe`\nThis infamous command allows you to 'snipe' a deleted message posted within the configured time limit. DinoBot will repost the message & author of the deleted message. Please use responsibly.\n\n";
+    helpMsg += "<:worrySnipe:953042402074050560> `pls esnipe`\nThis slightly less infamous command allows you to 'snipe' an edited message posted within the configured time limit. DinoBot will repost the original message & author of the edited message. Please use responsibly.\n\n";
+    helpMsg += "<:worrySnipe:953042402074050560> `pls rsnipe`\nThis completely obscure command allows you to 'snipe' a reaction that was removed from a message within the configured time limit. DinoBot will repost the original reaction & author. Please use irresponsibly.\n\n";
 
     if (!helpMsg) {
         bot.replyTo(interaction, bot.COLORS.ERROR, "There are no commands whitelisted for this channel");
         return;
     }   
     
-    const embed = new MessageEmbed().setTitle('CirqueBot Help: ​ ​ `!help`').setDescription(helpMsg)
+    const embed = new MessageEmbed().setTitle('DinoBot Help: ​ ​ `!help`').setDescription(helpMsg)
     bot.replyTo(interaction, bot.COLORS.INFO, embed);
 });
