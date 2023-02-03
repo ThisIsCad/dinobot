@@ -72,7 +72,7 @@ Use Node.js 16 or higher.
 
 ```
 npm install
-npm run build; node .\cirque-bot.js
+npm run build; node .\dino-bot.js
 ```
 
 Building The Docker Image

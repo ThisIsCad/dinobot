@@ -1,6 +1,6 @@
 import { GuildAuditLogsEntry, MessageEmbed, TextChannel } from "discord.js";
 import { client } from "../client";
-import { diffDate, EMBED_INFO_COLOR, findMembers, getFormattedDate, sendMessage } from "../utils";
+import { diffDate, EMBED_INFO_COLOR, findMembers, getFormattedDate, log, sendMessage } from "../utils";
 import { getConfig } from "./configuration";
 
 const auditLogs = {};
@@ -22,8 +22,16 @@ async function onMessageDelete(message, bulk) {
     const logChannel = await client.channels.fetch(config.deletion_log_channel) as TextChannel;
 
     // Grab the most recent MEMBER_KICK audit event to see if this user was kicked or left on their own
-    const fetchedDeletes = await message.guild?.fetchAuditLogs({ limit: 5, type: bulk ? 'MESSAGE_BULK_DELETE' : 'MESSAGE_DELETE' });
-    const deletionLogs = fetchedDeletes.entries.values();
+    let fetchedDeletes;
+
+    try {
+        fetchedDeletes = await message.guild?.fetchAuditLogs({ limit: 5, type: bulk ? 'MESSAGE_BULK_DELETE' : 'MESSAGE_DELETE' });
+    } catch (err) {
+        log('err', `Unabled to fetch audit logs to check deletion logs: ${err}`);
+        return;
+    }
+
+    const deletionLogs = fetchedDeletes.entries.values();  
     let deletionLog: GuildAuditLogsEntry<any> | null = null;
 
     for (let log of deletionLogs) {

@@ -7,7 +7,7 @@ import { cannedReplyHandler } from './cannedreplies/listener';
 import { nukeMessageHandler } from './misc/commands/nuke';
 import { log } from './utils';
 import { client } from './client';
-import { DMChannel, GuildTextBasedChannel, Message, TextChannel } from 'discord.js';
+import { DMChannel, TextChannel } from 'discord.js';
 import { bot } from './bot';
 
 import './admin/deletion_log';
@@ -29,6 +29,8 @@ client.on('ready', async () => {
   client.user?.setActivity('with dinos', { type: 'PLAYING' });
 
   await Promise.all(client.guilds.cache.map(async guild => {
+    log('debug', `Permission bitmask for ${guild.name}: https://discordapi.com/permissions.html#${guild.me.permissions.bitfield}`);
+
     log('debug', `Fetching members for server '${guild.name}'`);
     await guild.members.fetch();
     log('debug', `Finished fetching members for server '${guild.name}'`);
