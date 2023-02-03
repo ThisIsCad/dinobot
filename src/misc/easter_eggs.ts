@@ -43,31 +43,31 @@ export async function easterEggHandler(message: Message<boolean>) {
             setTimeout(() => bot.replyTo(message, bot.COLORS.DM, arrayRandom(angryResponses.badBot)));
             angerLevel = 1;
         } else {
-            setTimeout(() => message.react('<a:pepeRunCry:786844735754338304>'), 100);
+            setTimeout(() => message.react('<a:pepeRunCry:1071159633584070728>'), 100);
             angerLevel += 1;
         }
     } else if (message.content.match(/(<@\!?912376778939584562> )? *(good|best) bot *$/i) || message.content.includes(':goodBot:') || message.content.includes(':goodCirqueBot:')) {
-        setTimeout(() => message.react('<:peepoBowBlush:853445359463038986>'), 100);
+        setTimeout(() => message.react('<:peepoBowBlush:1067806369861881937>'), 100);
         angerLevel -= 1;
     } else if (message.content.match(/<@\!?912376778939584562> *shut *up/i)) {
         if (angerLevel >= 3) {
             setTimeout(() => bot.replyTo(message, bot.COLORS.DM, arrayRandom(angryResponses.shutUp)));
             angerLevel = 1;
         } else {
-            setTimeout(() => message.react('<:no:740146335197691945>'), 100);
+            setTimeout(() => message.react('<:no:1071158626556858469>'), 100);
             angerLevel += 1;
         }
     } else if (message.content.match(/^((<@\!?912376778939584562> )? *(hi|hello|hey) (cirque|dino) ?bot *|<@\!?912376778939584562> *(hi|hello|hey) *)/i)) {
-        setTimeout(() => message.react('<a:clownWave:819822599726432266>'), 100);
+        setTimeout(() => message.react('<a:bongoCatWave:1067805357235253249>'), 100);
         angerLevel -= 1;
     } else if (message.content.match(/^(<@\!?912376778939584562>).*\berp\b/i)) {
-        setTimeout(() => message.react('<:no:740146335197691945>'), 100);
+        setTimeout(() => message.react('<:no:1071158626556858469>'), 100);
     } else if (message.content.match(/blame (cirque|dino) ?bot/i)) {
         if (angerLevel >= 3) {
             setTimeout(() => bot.replyTo(message, bot.COLORS.DM, arrayRandom(angryResponses.blameBot)));
             angerLevel = 1;
         } else {
-            setTimeout(() => message.react('<a:pineappleNopers:925470285015183400>'), 100);
+            setTimeout(() => message.react('<a:pineappleNopers:1071159213012811857>'), 100);
             angerLevel += 1;
         }
     } else if (message.content.match(/^((<@\!?912376778939584562> )? *(fuck off|fuck you) (cirque|dino) ?bot *|<@\!?912376778939584562> *(fuck off|fuck you) *)$/i)) {
@@ -75,7 +75,7 @@ export async function easterEggHandler(message: Message<boolean>) {
             setTimeout(() => bot.replyTo(message, bot.COLORS.DM, 'How about YOU fuck off <:smadge:952346837136842762>'));
             angerLevel = 1;
         } else {
-            setTimeout(() => message.react('<:ANGERY:823203660603457567>'), 100);
+            setTimeout(() => message.react('<:ANGERY:1067805000719405147>'), 100);
             angerLevel += 1;
         }
     } else if (message.content.match(/where( is)? (cirque|dino) ?bot/i) || message.content.match(/^(<@\!?912376778939584562>) where (are|r) (you|u)/i)) {
@@ -83,6 +83,6 @@ export async function easterEggHandler(message: Message<boolean>) {
     } else if (message.content.match(/(<@\!?912376778939584562>)/)) {
         setTimeout(() => message.react('<:rooPing:833724789259894895>'), 100);
     } else if (message.content.match(/(cirque|dino) ?bot/i)) {
-        setTimeout(() => message.react('<:peepoPeek:871461195197071390>'), 100);
+        setTimeout(() => message.react('<:peepoPeek:1071158462182064199>'), 100);
     }
 }
