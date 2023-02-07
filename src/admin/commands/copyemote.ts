@@ -40,24 +40,34 @@ bot.registerCommand('copyemote', ['emote', 'addemote'], async message => {
         let m = emoji.match(/<(a?):([^:]+):([0-9]+)>/i);
 
         // Message didn't contain an emoji to copy
-        if (!m) {
+        if (!m && emoji.match(/https:\/\/cdn\.discordapp\.com\/emojis/i)) {
+            // This is how to generate a URL for an emoji
+            url = emoji.match(/(https:\/\/cdn\.discordapp\.com\/emojis\/[0-9]+\.[a-z]+)/i)[1] + '?size=4096&quality=lossless';
+            url = url.replace('.webp', '.png');
+            name = emoji.split(' ')[1];
+
+            if (!name) {
+                bot.replyTo(message, bot.COLORS.ERROR, makeError("Please specify an emoji name when using a URL"));
+                return;
+            }
+        } else if (!m) {
             bot.replyTo(message, bot.COLORS.ERROR, makeError("No emoji detected"));
             return;
-        }
+        } else {
+            // This is how to generate a URL for an emoji
+            url = `https://cdn.discordapp.com/emojis/${m[3]}.${m[1] === 'a' ? 'gif' : 'png'}?size=4096&quality=lossless`;
+            name = m[2];
 
-        // This is how to generate a URL for an emoji
-        url = `https://cdn.discordapp.com/emojis/${m[3]}.${m[1] === 'a' ? 'gif' : 'png'}?size=4096&quality=lossless`;
-        name = m[2];
-
-        emoji = emote.replace(/<a?:([^:])+:([0-9])+>/i, '').trim();
-
-        if (emoji.length > 0) {
-            name = emoji;
+            emoji = emote.replace(/<a?:([^:])+:([0-9])+>/i, '').trim();
+    
+            if (emoji.length > 0) {
+                name = emoji;
+            }
         }
     }
     
     try {
-        log('debug', `Attempting to add new emote (url: ${url}, name :${name})`);
+        log('debug', `Attempting to add new emote (url: ${url}, name: ${name})`);
         const newEmoji = await message.guild.emojis.create(url, name.replace(/:/g, ''));
         log('info', `${message.author.tag} has added a new emote (${url}, name: ${newEmoji.name}, id: ${newEmoji.id})`);
 
