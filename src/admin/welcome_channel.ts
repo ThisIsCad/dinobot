@@ -51,13 +51,33 @@ client.on('guildMemberAdd', async member => {
 
     const config = getConfig(member.guild.id, 'welcome', { enabled: false });
 
-    if (member.user.tag.startsWith('ceph#') || member.user.tag.startsWith('cephana#')) {
+    let BANNED_USERS = [
+        '318178318488698891', // Lovegood,
+        '282720271373303808', // Ryan MacNeil
+        '283425803168120832', // Twi'lek
+        '272222164005158912', // Sera
+        '184257378147893248', // Scribbles
+        '701278261052833874', // Lithisto
+        '193096198918373378', // Pres
+        '397497589534294016', // Maar
+        '459502839635378176', // Pigeon
+        'Dragonsmith25#7243',
+        'RobNotBob#1719',
+        'Jaxev#0794',
+        'Onufpal#5060',
+        'Ads#4008',
+        'ceilingdebris#5985',
+        'Xoz#0668',
+    ];
+
+    if (BANNED_USERS.includes(member.user.id) || BANNED_USERS.includes(member.user.tag.toLowerCase())) {
         const embed = new MessageEmbed()
             .setColor(EMBED_ERROR_COLOR)
             .setAuthor({ iconURL: member.displayAvatarURL() || '', name: `DinoBot Protection Protocol` })
-            .setDescription(`<@${member.user.id}> has been automatically kicked by DinoBot via Protect Cad Directive.`);
+            .setDescription(`<@${member.user.id}> has been automatically kicked by DinoBot via the Anti-Asshole Protection Directive.`);
 
         member.guild.systemChannel?.send({ embeds: [embed] });
+        member.kick("DinoBot Protection Protocol");
         return;
     }
     

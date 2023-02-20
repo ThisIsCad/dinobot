@@ -73,10 +73,10 @@ bot.registerCommand('copyemote', ['emote', 'addemote'], async message => {
 
         // Need a slight timeout after adding the emote or it won't load in the resulting message
         setTimeout(() => {
-            bot.replyTo(message, bot.COLORS.SUCCESS, `Your new emote has been added <${url.includes('.gif') ? 'a' : ''}:${newEmoji.name}:${newEmoji.id}>`);
+            bot.replyTo(message, bot.COLORS.SUCCESS, `Your new emote has been added <${url.includes('.gif') ? 'a' : ''}:${newEmoji.name}:${newEmoji.id}> as :${newEmoji.name}:`);
         }, 100);
     } catch (err) {
         // Typical failures is only if we're out of emoji slots, or the attachment is too big
-        bot.replyTo(message, bot.COLORS.ERROR, makeError("Failed to create emoji: " + err));
+        bot.replyTo(message, bot.COLORS.ERROR, makeError("Failed to create emoji. I'm sorry <:sadge:1069981541918331031>\n\n> " + err.toString().split("\n").join("\n> ")));
     }
 });

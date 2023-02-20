@@ -29,15 +29,13 @@ client.on('ready', async () => {
   client.user?.setActivity('with dinos', { type: 'PLAYING' });
 
   await Promise.all(client.guilds.cache.map(async guild => {
-    log('debug', `Permission bitmask for ${guild.name}: https://discordapi.com/permissions.html#${guild.me.permissions.bitfield}`);
+    log('debug', `Permission for ${guild.name}: https://discordapi.com/permissions.html#${guild.me.permissions.bitfield}`);
 
-    log('debug', `Fetching members for server '${guild.name}'`);
     await guild.members.fetch();
-    log('debug', `Finished fetching members for server '${guild.name}'`);
+    log('debug', `Fetched members for server '${guild.name}'`);
 
-    log('debug', `Fetching channels for server '${guild.name}'`);
     await guild.channels.fetch();
-    log('debug', `Finished fetching channels for server '${guild.name}'`);
+    log('debug', `Fetched channels for server '${guild.name}'`);
   }));
 
   log('info', 'Bot initialization and preloading complete. Now listening for commands');
@@ -72,6 +70,13 @@ client.on('messageCreate', async (message) => {
         if (text.trim()) {
             console.log(`Deleting message from ${message.channel.name} by ${message.author.tag}: ${message.content} (remaining text - ${text.length} bytes: ${text})`);
             message.delete();
+            return;
+        }
+    } else if (message.channel instanceof TextChannel && message.channel.id === '888274991941046303') {
+        if (message.type !== 'GUILD_MEMBER_JOIN' && message.stickers.size !== 1 && !message.content.trim().match(/^<a?:.*?:\d+>$/i) && !message.content.trim().match(/^https?:\/\/([^ ]+)$/i)) {
+            console.log(`Deleting message from ${message.channel.name} by ${message.author.tag}: ${message.content} (was not a sticker)`);
+            message.delete();
+            return;
         }
     }
 

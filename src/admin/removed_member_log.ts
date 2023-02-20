@@ -5,20 +5,18 @@ import { getConfig } from "./configuration";
 import { archiveWelcomeChannel } from "./welcome_channel";
 
 const memberLeftMessages = [
-    `Was it something I said? <:sadge:786846456769544253>`,
-    `I guess we pinged them one too many times <:sadge:786846456769544253>`,
-    `Maybe they were offended by my gangbang command <:sadge:786846456769544253>`,
-    `I hope we didn't scare them away <:sadge:786846456769544253>`,
-    `I'll try not to take it personallyy <:sadge:786846456769544253>`,
-    `Maybe they accidentally left the server <:sadge:786846456769544253>`,
-    `Perhaps I scared them away <:sadge:786846456769544253>`,
-    `Perhaps the Shadow Clowncil scared them away <:sadge:786846456769544253>`,
-    `Looks like our brainwashing failed to keep them here <:sadge:786846456769544253>`,
-    `Sad! Let's just hope that they enjoyed their stay <:sadge:786846456769544253>`,
-    `Awww man, hopefully they enjoyed their stay <:sadge:786846456769544253>`,
-    `Oh no, another one bites the dust! Hopefully they enjoyed their stay <:sadge:786846456769544253>`,
-    `That's disappointing! Let's just hope they enjoyed their stay <:sadge:786846456769544253>`,
-    `What a travesty! It always sucks to see someone go <:sadge:786846456769544253>`,
+    `Was it something I said? <:sadge:1069981541918331031>`,
+    `I guess we pinged them one too many times <:sadge:1069981541918331031>`,
+    `I hope we didn't scare them away <:sadge:1069981541918331031>`,
+    `I'll try not to take it personallyy <:sadge:1069981541918331031>`,
+    `Maybe they accidentally left the server <:sadge:1069981541918331031>`,
+    `Perhaps I scared them away <:sadge:1069981541918331031>`,
+    `Looks like our brainwashing failed to keep them here <:sadge:1069981541918331031>`,
+    `Sad! Let's just hope that they enjoyed their stay <:sadge:1069981541918331031>`,
+    `Awww man, hopefully they enjoyed their stay <:sadge:1069981541918331031>`,
+    `Oh no, another one bites the dust! Hopefully they enjoyed their stay <:sadge:1069981541918331031>`,
+    `That's disappointing! Let's just hope they enjoyed their stay <:sadge:1069981541918331031>`,
+    `What a travesty! It always sucks to see someone go <:sadge:1069981541918331031>`,
 ];
 
 client.on('guildMemberRemove', async member => {
@@ -46,7 +44,7 @@ client.on('guildMemberRemove', async member => {
         goodbye = `Adios amigo! Thanks <@${kickLog.executor?.id}> for taking out the trash <:pepetrash:740924034493055038>. Reason: ${kickLog.reason?.trim()}`
     } else if (member.joinedAt && diffDate(member.joinedAt, new Date()) < 60 * 60 * 4) {
         message = 'just left the server!';
-        goodbye = `Aww man, they didn't even get to know us yet <:sadge:786846456769544253>`;
+        goodbye = `Aww man, they didn't even get to know us yet <:sadge:1069981541918331031>`;
     } else {
         message = 'just left the server!';
         goodbye = arrayRandom(memberLeftMessages);
