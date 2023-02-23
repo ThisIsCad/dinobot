@@ -1,6 +1,6 @@
-export const EMOJI_TANK = '<:tank:933048000727629835>';
-export const EMOJI_HEAL = '<:heal:933048000740229140>';
-export const EMOJI_DPS = '<:dps:933048000866033774>';
+export const EMOJI_TANK = '<:tank:1078354357046747238>';
+export const EMOJI_HEAL = '<:healer:1078354484973015171>';
+export const EMOJI_DPS = '<:dps:1078354427469123584> ';
 export const EMOJI_TANK_SUB = '💙';
 export const EMOJI_HEAL_SUB = '💚';
 export const EMOJI_DPS_SUB = '❤️';

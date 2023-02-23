@@ -87,6 +87,10 @@ export async function updateEventEmbeds(event: CircusEvent) {
                     await msg.react(EMOJI_TANK_SUB);
                     await msg.react(EMOJI_HEAL_SUB);
                     await msg.react(EMOJI_DPS_SUB);
+                } else if (event.template === 'scp_raid') {
+                    await msg.react('✅');
+                    await msg.react('❓');
+                    await msg.react('❌');
                 } else if (event.template === 'generic_event' || event.template === 'lostark_raid') {
                     if (event.role_limits.group1 > 0) await msg.react('1️⃣');
                     if (event.role_limits.group2 > 0) await msg.react('2️⃣');
@@ -112,7 +116,7 @@ export function createEventEmbed(event: CircusEvent) {
     const tank_subs = formatSignups(event, 'tank_subs', '💙');
     const healer_subs = formatSignups(event, 'healer_subs', '💚');
     const dps_subs = formatSignups(event, 'dps_subs', '❤️');
-    const group1_signups = formatSignups(event, 'group1', '1️⃣');
+    const group1_signups = formatSignups(event, 'group1', event.template === 'scp_raid' ? '✅' : '1️⃣');
     const group2_signups = formatSignups(event, 'group2', '2️⃣');
     const group3_signups = formatSignups(event, 'group3', '3️⃣');
     const tenative_signups = formatSignups(event, 'tentative', '❓');
@@ -145,7 +149,19 @@ export function createEventEmbed(event: CircusEvent) {
             { name: `${EMOJI_HEAL_SUB} Healer Subs (${Object.values(event.signups.healer_subs).length})`, value: healer_subs, inline: true },
             { name: `${EMOJI_DPS_SUB} DPS Subs (${Object.values(event.signups.dps_subs).length})`, value: dps_subs, inline: true }
         ];
-    } else if (event.template === 'generic_event' || event.template === 'lostark_raid') {
+    } else if (event.template === 'scp_raid') {
+        description += 
+            `You may sign-up to the event using the reactions below. If you are not 100% sure you can make it, ` + 
+            `please mark yourself as tentative. ` + 
+            `Clicking the same reaction a second time will cancel your sign-up for that role. ` + 
+            `**It may take up to 20 seconds to update the post after you sign-up, so please be patient.**\n⠀\n`;
+        
+        fields = [
+            { name: `✅ Going (${Object.values(event.signups.group1).length})`, value: group1_signups, inline: true },
+            { name: `❓ Tentative (${Object.values(event.signups.tentative).length})`, value: tenative_signups, inline: true },
+            { name: `❌ Not Going (${Object.values(event.signups.notgoing).length})`, value: notgoing_signups, inline: true },
+        ];
+    } else if (event.template === 'generic_event' || event.template === 'lostark_raid' || event.template === 'scp_raid') {
         description += 
             `You may sign-up to the event using the reactions below. If you are not 100% sure you can make it, ` + 
             `please mark yourself as tentative. ` + 
@@ -180,8 +196,10 @@ export function createEventEmbed(event: CircusEvent) {
 
     if (event.template === 'generic_event') {
         embed.setAuthor({ name: event.title, iconURL: 'https://cdn.discordapp.com/attachments/814616443919532062/953372804756152340/Circle-icons-calendar.png' });
-    } else if (event.template === 'lostark_raid') {
-        embed.setAuthor({ name: event.titlew, iconURL: 'https://cdn.discordapp.com/attachments/814616443919532062/953383310917263421/ODEoHFKQfD4C2DnKS1FpoQMwLSwYb2Okej2E-3ZOsKQ.jpg' });
+    } else if (event.template === 'scp_raid') {
+        embed.setAuthor({ name: event.title, iconURL: 'https://cdn.discordapp.com/attachments/814616443919532062/953372804756152340/Circle-icons-calendar.png' });
+    }  else if (event.template === 'lostark_raid') {
+        embed.setAuthor({ name: event.title, iconURL: 'https://cdn.discordapp.com/attachments/814616443919532062/953383310917263421/ODEoHFKQfD4C2DnKS1FpoQMwLSwYb2Okej2E-3ZOsKQ.jpg' });
     } else if (event.title.match(/Pub/)) {
         embed.setAuthor({ name: event.title, iconURL: PUB_SIDE_ICON_URL });
     } else if (event.title?.match(/(Imp|Empire)/)) {
@@ -199,10 +217,14 @@ function formatSignups(event: CircusEvent, role: keyof CircusEvent['signups'], e
         return '⠀';
     }
 
-    let signups = (Object.values(event.signups[role]).length > 0 ? `${emoji} ` : "");
+    let signups = (Object.values(event.signups[role]).length != 0 ? `${emoji} ` : "");
     signups += Object.values(event.signups[role]).map(x => x.substring(0, 21)).join(`\n${emoji} `);
 
     let limit = event.role_limits[role] >= 99 ? 1 : Math.min(16, event.role_limits[role]);
+
+    if (event.role_limits[role] < 0) {
+        return signups || '\u200b\n' || '⠀';
+    }
 
     return signups || '\u200b\n'.repeat(limit - Math.max(0, Object.values(event.signups[role]).length - 1)) || '⠀';
 }

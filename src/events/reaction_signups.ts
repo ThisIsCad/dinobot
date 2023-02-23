@@ -12,6 +12,7 @@ let userRateLimits = {
     '💙': {},
     '💚': {},
     '❤️': {},
+    '✅': {},
     '1️⃣': {},
     '2️⃣': {},
     '3️⃣': {},
@@ -26,6 +27,7 @@ let userRateLimits = {
      '💙': {},
      '💚': {},
      '❤️': {},
+     '✅': {},
      '1️⃣': {},
      '2️⃣': {},
      '3️⃣': {},
@@ -106,6 +108,7 @@ async function handleGenericEventReactionAdd(event: CircusEvent, emoji: string, 
         '1️⃣': 'group1',
         '2️⃣': 'group2',
         '3️⃣': 'group3',
+        '✅': 'group1',
         '❓': 'tentative',
         '⌚': 'waitlist',
         '❌': 'notgoing',
@@ -118,9 +121,9 @@ async function handleGenericEventReactionAdd(event: CircusEvent, emoji: string, 
             log('info', `${user.tag} has removed themself as '${role}' for event ${event.id} (${event.title})`);
             delete event.signups[role][user.id];
             return;
-        } else if (Object.values(event.signups[role]).length >= event.role_limits[role]) {
+        } else if (Object.values(event.signups[role]).length >= event.role_limits[role] && event.role_limits[role] >= 0) {
             log('info', `  Unable to sign-up ${user.tag} as '${role}' for event ${event.id} - '${role}' spots are full`);
-            messageUser(user, `<:error:935248898086273045> Sorry, '${role}' sign-ups for ${event.title} are currently full.`);
+            messageUser(user, `<:error:1078359607329706014> Sorry, '${role}' sign-ups for ${event.title} are currently full.`);
             return;
         }
 
@@ -152,7 +155,7 @@ async function handleReactionAdd(event: CircusEvent, emoji: string, reaction: Me
             return;
         } else if (Object.values(event.signups.tanks).length >= event.role_limits.tank) {
             log('info', `  Unable to sign-up user ${user.tag} as a Tank for event ${event.id} - Tank spots are full`);
-            messageUser(user, `<:error:935248898086273045> Sorry, tank sign-ups for ${event.title} are currently full. Please consider signing up for another role, or as a sub instead`);
+            messageUser(user, `<:error:1078359607329706014> Sorry, tank sign-ups for ${event.title} are currently full. Please consider signing up for another role, or as a sub instead`);
             return;
         }
 
@@ -173,7 +176,7 @@ async function handleReactionAdd(event: CircusEvent, emoji: string, reaction: Me
             return;
         } else if (Object.values(event.signups.dps).length >= event.role_limits.dps) {
             log('info', `  Unable to sign-up user ${user.tag} as a DPS for event ${event.id} - DPS spots are full`);
-            messageUser(user, `<:error:935248898086273045> Sorry, DPS sign-ups for ${event.title} are currently full. Please consider signing up for another role, or as a sub instead`);
+            messageUser(user, `<:error:1078359607329706014> Sorry, DPS sign-ups for ${event.title} are currently full. Please consider signing up for another role, or as a sub instead`);
             return;
         }
 
@@ -194,7 +197,7 @@ async function handleReactionAdd(event: CircusEvent, emoji: string, reaction: Me
             return;
         } else if (Object.values(event.signups.healers).length >= event.role_limits.healer) {
             log('info', `  Unable to sign-up user ${user.tag} as a Healer for event ${event.id} - Healer spots are full`);
-            messageUser(user, `<:error:935248898086273045> Sorry, healer sign-ups for ${event.title} are currently full. Please consider signing up for another role, or as a sub instead`);
+            messageUser(user, `<:error:1078359607329706014> Sorry, healer sign-ups for ${event.title} are currently full. Please consider signing up for another role, or as a sub instead`);
             return;
         }
 

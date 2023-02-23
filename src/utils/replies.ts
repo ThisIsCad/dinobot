@@ -6,7 +6,7 @@ export const EMBED_ERROR_COLOR = '#e14f5e';
 export const EMBED_INFO_COLOR = '#0099ff';
 export const EMBED_DMM_COLOR = '#9c59b6';
 
-export const EMOJI_ERROR = '<:error:935248898086273045>';
+export const EMOJI_ERROR = '<:error:1078359607329706014>';
 
 export async function startTyping(channel: TextBasedChannel | null) {
     try {

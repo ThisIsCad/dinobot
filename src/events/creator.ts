@@ -25,7 +25,7 @@ export function beginEventCreation(message: Message<boolean>, quick: boolean) {
         sendMessage(message.channel, "Creating new event (Advanced Mode). Please enter the JSON for the event:");
     } else {
         eventSessions[message.channel.id].step = 'template';
-        sendMessage(message.channel, "Creating new event. Please select a **Template** for the event (`swtor`, `lostark`, or `generic`):");
+        sendMessage(message.channel, "Creating new event. Please select a **Template** for the event (`swtor`, `lostark`, `scp`, or `generic`):");
     }
 }
 
@@ -59,19 +59,26 @@ export function eventCreationHandler(message: Message<boolean>) {
         case 'template':
             let template = message.content.trim();
 
+            if (template === 'scp') template = 'scp_raid';
             if (template === 'lostark' || template === 'lost ark') template = 'lostark_raid';
             if (template === 'swtor') template = 'swtor_raid';
             if (template === 'event' || template === 'social' || template === 'generic') template = 'generic_event';
 
-            if (template !== 'swtor_raid' && template !== 'generic_event' && template !== 'lostark_raid') {
-                sendError(message.channel, 'Invalid template, please use one of `swtor` or `generic`');
+            if (template !== 'swtor_raid' && template !== 'generic_event' && template !== 'lostark_raid' && template !== 'scp_raid') {
+                sendError(message.channel, 'Invalid template, please use one of `swtor`, `lostark`, `scp`, or `generic`');
                 message.react('👎');
                 return;
             }
 
             event.template = template;
             eventSessions[message.channel.id].step = 'title';
-            sendMessage(message.channel, "Please enter a **Title** for the event (e.g. \"16p HM Revan (Pub Side)\"):");
+
+            if (template === 'scp_raid') {
+                sendMessage(message.channel, "Please enter a **Title** for the event (e.g. \"Saturday Night SCP\"):");
+            } else {
+                sendMessage(message.channel, "Please enter a **Title** for the event (e.g. \"16p HM Revan (Pub Side)\"):");
+            }
+            
             break;
         case 'title':
             event.title = message.content;
@@ -90,7 +97,7 @@ export function eventCreationHandler(message: Message<boolean>) {
             break;
         case 'date':
             if (!message.content.match(/^[0-9]{1,2}-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-202[2-9]$/)) {
-                sendError(message.channel, 'Invalid date or date format was given, please try again');
+                sendError(message.channel, 'Invalid date or date format was given, please try again and exactly match the format in the prompt (e.g. **01-Jan-2023** or **25-Jun-2023**)');
                 message.react('👎');
                 return;
             }
@@ -117,6 +124,13 @@ export function eventCreationHandler(message: Message<boolean>) {
             if (event.template === 'swtor_raid') {
                 event.step = 'tank_requirements';
                 sendMessage(message.channel, "Please enter the requirements for Tanks to sign-up for this event:");
+            } else if (event.template === 'scp_raid') {
+                event.role_limits.group1 = -1;
+                event.role_limits.group2 = 0;
+                event.role_limits.group3 = 0;
+                event.step = 'none';
+                createEvent(message.channel, event);
+                delete eventSessions[message.channel.id];
             } else if (event.template === 'generic_event' || event.template === 'lostark_raid') {
                 event.step = 'group1_limit';
                 sendMessage(message.channel, "Please enter the maximum number of attendees for group 1 (enter '0' to disable this group):");
@@ -167,7 +181,7 @@ export function eventCreationHandler(message: Message<boolean>) {
             sendMessage(message.channel, "Please enter the number of DPS spots for this event:");
             break;
         case 'group1_limit':
-            if (!message.content.match(/^[0-9]+$/i)) {
+            if (!message.content.match(/^-?[0-9]+$/i)) {
                 sendError(message.channel, 'Invalid format, the entered value **must** be a number');
                 message.react('👎');
                 return;
@@ -178,7 +192,7 @@ export function eventCreationHandler(message: Message<boolean>) {
             sendMessage(message.channel, "Please enter the maximum number of attendees for group 2 (enter '0' to disable this group):");
             break;
         case 'group2_limit':
-            if (!message.content.match(/^[0-9]+$/i)) {
+            if (!message.content.match(/^-?[0-9]+$/i)) {
                 sendError(message.channel, 'Invalid format, the entered value **must** be a number');
                 message.react('👎');
                 return;
@@ -197,7 +211,7 @@ export function eventCreationHandler(message: Message<boolean>) {
             }
             break;
         case 'group3_limit':
-            if (!message.content.match(/^[0-9]+$/i)) {
+            if (!message.content.match(/^-?[0-9]+$/i)) {
                 sendError(message.channel, 'Invalid format, the entered value **must** be a number');
                 message.react('👎');
                 return;

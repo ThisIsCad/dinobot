@@ -43,7 +43,7 @@ interface CircusEvent {
     quick_create: boolean;
     step: string;
     signup_status: 'open' | 'closed';
-    template: 'swtor_raid' | 'generic_event' | 'lostark_raid';
+    template: 'swtor_raid' | 'generic_event' | 'lostark_raid' | 'scp_raid';
     open_signups_at: string?;
     published_channels: { [key: string]: string }
 }
