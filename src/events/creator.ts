@@ -1,10 +1,10 @@
-import { Client, Message } from "discord.js";
+import { Message } from "discord.js";
 import { sendError, sendMessage } from "../utils/replies";
 import { log } from "../utils/logging";
 import { makeEmptyEvent } from "./default_event";
 import { createEvent } from "./persistence";
 
-let eventSessions: { [channelId: string]: CircusEvent } = { };
+const eventSessions: { [channelId: string]: CircusEvent } = { };
 
 export function beginEventCreation(message: Message<boolean>, quick: boolean) {
     if (eventSessions.hasOwnProperty(message.channel.id)) {
@@ -96,18 +96,23 @@ export function eventCreationHandler(message: Message<boolean>) {
             sendMessage(message.channel, "Please enter the date for the event (using the format DD-MMM-YYYY, e.g. 03-Jan-2022):");
             break;
         case 'date':
-            if (!message.content.match(/^[0-9]{1,2}-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-202[2-9]$/)) {
-                sendError(message.channel, 'Invalid date or date format was given, please try again and exactly match the format in the prompt (e.g. **01-Jan-2023** or **25-Jun-2023**)');
+            if (!message.content.match(/^[0-9]{1,2}-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*-202[2-9]$/i)) {
+                sendError(message.channel, 'Invalid date or date format was given, please try again and __exactly match the format__ in the prompt (e.g. **01-Jan-2023** or **25-Jun-2023**) - ');
                 message.react('👎');
                 return;
             }
-
-            event.date = message.content;
+            
+            let date = message.content.split('-');
+            event.date = `${date[0]}-${date[1].substring(0, 3)}-${date[2]}`;
             event.step = 'time';
-            sendMessage(message.channel, "Please enter the time for the event (e.g. 6:00 PM):");
+            sendMessage(message.channel, "Please enter the time for the event (e.g. 6:00 PM) - the time should be provided as EST and will be displayed in the user's timezone in Discord:");
             break;
         case 'time':
-            if (!message.content.match(/^([0-2]?[0-9]:[0-9]{2}) ?(AM|PM)( [A-Z]{3})?$/i)) {
+            if (message.content.match(/^([0-2]?[0-9]) ?(AM|PM)( [A-Z]{2,3})?$/i)) {
+                message.content = message.content.replace(/^([0-2]?[0-9])/, '$1:00');
+            }
+
+            if (!message.content.match(/^([0-2]?[0-9]:[0-9]{2}) ?(AM|PM)( [A-Z]{2,3})?$/i)) {
                 sendError(message.channel, 'Invalid time or time format was given, please try again');
                 message.react('👎');
                 return;
@@ -115,7 +120,7 @@ export function eventCreationHandler(message: Message<boolean>) {
 
             let time = message.content.replace(/ ?(AM|PM)/, ' $1');
 
-            if (!time.match(/ [A-Z]{3}$/)) {
+            if (!time.match(/ [A-Z]{2,3}$/)) {
                 event.time = time.toUpperCase() + ' EST';
             } else {
                 event.time = time.toUpperCase();
@@ -123,7 +128,7 @@ export function eventCreationHandler(message: Message<boolean>) {
 
             if (event.template === 'swtor_raid') {
                 event.step = 'tank_requirements';
-                sendMessage(message.channel, "Please enter the requirements for Tanks to sign-up for this event:");
+                sendMessage(message.channel, "Please enter the requirements for Tanks to sign-up for this event (this will be shown in the description, e.g. \"Must have cleared in 8P\"):");
             } else if (event.template === 'scp_raid') {
                 event.role_limits.group1 = -1;
                 event.role_limits.group2 = 0;
@@ -140,12 +145,12 @@ export function eventCreationHandler(message: Message<boolean>) {
         case 'tank_requirements':
             event.role_requirements.tank = message.content;
             event.step = 'heal_requirements';
-            sendMessage(message.channel, "Please enter the requirements for Healers to sign-up for this event:");
+            sendMessage(message.channel, "Please enter the requirements for Healers to sign-up for this event (this will be shown in the description, e.g. \"Must have cleared in 8P and pull 10k EHPS\"):");
             break;
         case 'heal_requirements':
             event.role_requirements.healer = message.content;
             event.step = 'dps_requirements';
-            sendMessage(message.channel, "Please enter the requirements for DPS to sign-up for this event:");
+            sendMessage(message.channel, "Please enter the requirements for DPS to sign-up for this event (this will be shown in the description, e.g. \"Must have cleared in 8P and pull 15k DPS\"):");
             break;
         case 'dps_requirements':
             event.role_requirements.dps = message.content;

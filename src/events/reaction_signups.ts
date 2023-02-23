@@ -6,9 +6,9 @@ import { events, saveEvents } from './persistence';
 
 let userRateLimits = { 
     'all': {},
-    '<:tank:933048000727629835>': {},
-    '<:heal:933048000740229140>': {},
-    '<:dps:933048000866033774>': {},
+    '<:tank:1078354357046747238>': {},
+    '<:healer:1078354484973015171>': {},
+    '<:dps:1078354427469123584>': {},
     '💙': {},
     '💚': {},
     '❤️': {},
@@ -21,9 +21,9 @@ let userRateLimits = {
     '❌': {},
  };
  let pendingUserUpdates = { 
-     '<:tank:933048000727629835>': {},
-     '<:heal:933048000740229140>': {},
-     '<:dps:933048000866033774>': {},
+     '<:tank:1078354357046747238>': {},
+     '<:healer:1078354484973015171>': {},
+     '<:dps:1078354427469123584>': {},
      '💙': {},
      '💚': {},
      '❤️': {},
@@ -148,7 +148,7 @@ async function handleReactionAdd(event: CircusEvent, emoji: string, reaction: Me
         return;
     }
     
-    if (emoji === '<:tank:933048000727629835>') {
+    if (emoji === '<:tank:1078354357046747238>') {
         if (event.signups.tanks.hasOwnProperty(user.id)) {
             log('info', `User ${user.tag} has removed themself as a Tank for event ${event.id} (${event.title})`);
             delete event.signups.tanks[user.id];
@@ -169,7 +169,7 @@ async function handleReactionAdd(event: CircusEvent, emoji: string, reaction: Me
 
         log('info', `User ${user.tag} has added themself as a Tank for event ${event.id} (${event.title})`);
         event.signups.tanks[user.id] = await getDisplayName(reaction, user);
-    } else if (emoji === '<:dps:933048000866033774>') {
+    } else if (emoji === '<:dps:1078354427469123584>') {
         if (event.signups.dps.hasOwnProperty(user.id)) {
             log('info', `User ${user.tag} has removed themself as a DPS for event ${event.id} (${event.title})`);
             delete event.signups.dps[user.id];
@@ -190,7 +190,7 @@ async function handleReactionAdd(event: CircusEvent, emoji: string, reaction: Me
 
         log('info', `User ${user.tag} has added themself as a DPS for event ${event.id} (${event.title})`);
         event.signups.dps[user.id] = await getDisplayName(reaction, user);
-    } else if (emoji === '<:heal:933048000740229140>') {
+    } else if (emoji === '<:healer:1078354484973015171>') {
         if (event.signups.healers.hasOwnProperty(user.id)) {
             log('info', `User ${user.tag} has removed themself as a Healer for event ${event.id} (${event.title})`);
             delete event.signups.healers[user.id];

@@ -110,9 +110,9 @@ export async function updateEventEmbeds(event: CircusEvent) {
 }
 
 export function createEventEmbed(event: CircusEvent) {
-    const tank_signups = formatSignups(event, 'tanks', '<:tank:933048000727629835>');
-    const healer_signups = formatSignups(event, 'healers', '<:heal:933048000740229140>');
-    const dps_signups = formatSignups(event, 'dps', '<:dps:933048000866033774>');
+    const tank_signups = formatSignups(event, 'tanks', EMOJI_TANK);
+    const healer_signups = formatSignups(event, 'healers', EMOJI_HEAL);
+    const dps_signups = formatSignups(event, 'dps', EMOJI_DPS);
     const tank_subs = formatSignups(event, 'tank_subs', '💙');
     const healer_subs = formatSignups(event, 'healer_subs', '💚');
     const dps_subs = formatSignups(event, 'dps_subs', '❤️');
@@ -226,5 +226,5 @@ function formatSignups(event: CircusEvent, role: keyof CircusEvent['signups'], e
         return signups || '\u200b\n' || '⠀';
     }
 
-    return signups || '\u200b\n'.repeat(limit - Math.max(0, Object.values(event.signups[role]).length - 1)) || '⠀';
+    return signups + ('\u200b\n'.repeat(limit - Math.max(0, Object.values(event.signups[role]).length - 1)) || '⠀');
 }
